@@ -1,0 +1,18 @@
+/* Order items by price
+Show stats
+Show stats for category Kitchen Supplies
+Own query*/ 
+
+/*SELECT * FROM superstore
+ORDER BY price DESC;*/
+
+/*SELECT AVG(price)
+FROM superstore;*/
+
+/*SELECT * FROM superstore
+WHERE category = "Kitchen Supplies"
+AND average_rating > 4.5;*/
+
+SELECT * FROM superstore
+WHERE average_rating < 4.5
+ORDER BY price ASC;
