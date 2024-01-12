@@ -71,3 +71,14 @@ END AS 'Average Time Off'
 FROM fortune_companies;
 
 
+#Which industries have an average tenure of at least 5 years, and what is their average tenure
+SELECT company_name, ROUND(AVG(avg_employee_tenure)) as avg_tenure
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_tenure > 5;
+
+
+
+
+
+
