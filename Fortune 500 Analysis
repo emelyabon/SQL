@@ -57,3 +57,17 @@ VALUES
     ('Company II', 'Telecommunications', 110.5, 2000, 1, 21, 12, 4.9),
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
+
+# Analysis: 
+
+# Assign all companies in the industry as "More Than Aveage", 
+                    "Average", or "Less Than Average" based on the Paid Time Off offered. 
+SELECT company_name,
+CASE
+	WHEN paid_time_off_days > 20 THEN 'More Than Average'
+    WHEN paid_time_off_days < 15 THEN 'Less Than Average'
+    ELSE 'Average'
+END AS 'Average Time Off'
+FROM fortune_companies;
+
+
