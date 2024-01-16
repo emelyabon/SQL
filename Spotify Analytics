@@ -1,0 +1,53 @@
+#For this project, I downloaded Spotify data from Kaggle.
+#Then I created a table to insert Spotify data into.
+#Finally, I performed analytics on the data using SQL.
+
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+#Then I inserted the Spotify Data .csv into the table. 
+
+#Next I explored the data using the following SQL. 
+
+#First I wanted to see the average popluarity of each artist and their album.
+SELECT artist_name, AVG(popularity) as 'Average'
+FROM spotifydata
+GROUP BY artist_name
+ORDER BY popularity DESC
+LIMIT 5;
+
+
+#Then I determined the likihood of a song being part of a dance playlist and ordered by popularity.
+SELECT artist_name, track_name, popularity, SUM(danceability)*100 as 'Dance Party Song'
+FROM spotifydata
+WHERE danceability > 0.68572
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+#Calculate the average popularity for the artist in the Spotify data table. Then, for every artist with an average popularity of 90 or above, show their name, average popularity, and lable them as a "Top Star".
+
+WITH popularity_average_CTE AS (
+SELECT artist_name, AVG(popularity) 
+AS average_popularity
+FROM spotifydata s
+GROUP BY s.artist_name)
+SELECT artist_name, average_popularity, 'Top Star' as tag
+FROM popularity_average_CTE
+WHERE average_popularity >= 90;
